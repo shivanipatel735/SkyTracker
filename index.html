@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="duration-500 ease-in-out" id="background">
+<div>
+  <header class="header flex justify-between">
+      <h1 class="header-title font-extrabold text-white text-transparent text-3xl">SkyTracker</h1>
+      <button id="refreshBtn" class="text-lg">
+        <i class="fas fa-sync-alt" aria-hidden="true"></i>
+      </button>
+  </header>
+</div>
+  <div class="container">
+    <div class="row">
+      <!-- Main container -->
+      <div id="Mainbox" class="bg-cover bg-center w-100 shadow-lg rounded-2xl p-6 text-center" style="background-image: url('download.jpg');">
+      <!-- <div id="Mainbox" class="bg-blue-400 w-100 bg-opacity-20 shadow-lg rounded-2xl p-6 text-center"> -->
+        <!-- Title -->
+        <h1 class="text-5xl font-bold text-white drop-shadow-md mb-3 ">🌤 Weather</h1>
+        <!-- Current location and time -->
+        <div class="grid  grid-cols-2 bg-opacity-20  m-1">
+          <div class="text-sm-left">          
+            <p id="greeting" class="text-black-50 font-bold mb-2"></p>
+          </div>
+          <!-- <div id="location" class="text-white text-lg mx-2"></div> -->     
+          <div class="flex justify-end items-center">
+            <p id="localDate" class="text-black-50 text-lg mx-2"></p>
+            <p id="localTime" class="text-black-50 text-lg mx-2"></p>
+          </div>
+        </div> 
+        <!-- Search bar -->
+        <div class="flex align-items-lg-stretch gap-2 mb-6">
+          <input id="cityInput" type="text" class="w-full p-3 text-lg rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none" placeholder="Enter city name...">
+          <button id="searchBtn" class="p-3 bg-yellow-400 hover:bg-yellow-500 text-white font-semibold rounded-lg">🔍</button>
+        </div>
+       
+        
+        <!-- Weather information -->   
+        <div class="grid grid-cols-3 gap-x-4">
+        <!-- New Sunrise and Sunset Box outside the main container -->
+        <div class="text-blue-600 p-4 rounded-lg ">
+          <p id="sunrise" class="text-lg mb-3"></p>
+          <p id="sunset" class="text-lg mb-3"></p> <!-- Sunset time -->
+        </div>
+
+        <div id="weatherInfo" class="hidden text-blue-400 border-2 border-blue-200 p-4 rounded-lg"> 
+          <h2 id="cityName" class="text-3xl font-semibold"></h2>
+          <p id="weatherDesc" class="capitalize text-lg"></p>
+          <p id="temperature" class="text-5xl font-bold mt-3"></p>
+          <p id="windSpeed" class="text-lg mt-2"></p>
+          <p id="humidity" class="text-lg mt-2"></p>
+          <p id="airPollution" class="text-lg mt-2"></p>
+          <!-- Weather Icon -->
+          <div id="weatherIcon" class="text-6xl mt-3"></div>
+        </div>
+        
+        <div id="highLowTemp" class="text-blue-600 p-4">
+          <p id="highTemp"class="text-lg mb-3"></p>
+          <p id="lowTemp"class="text-lg mb-3"></p>
+      </div>
+      </div>
+        <!-- Graphs for Day & Weekly Weather -->
+        <div class="mt-6 ">
+          <canvas id="dailyWeatherGraph" width="400" height="200"></canvas>
+          <canvas id="weeklyWeatherGraph" width="400" height="200"></canvas>
+        </div>
+        <!-- Error message -->
+        <div id="error" class="hidden text-red-500 font-semibold mt-4">City not found, please try again.</div>
+      </div>      
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+<!-- <div class="flex justify-items-center">
+  <div class="flex justify-center bg-opacity-20 text-center m-3">
+    <div id="location" class="text-black text-sm mx-2"></div>
+    <i class="fas fa-clock text-black text-lg mx-2" aria-hidden="true"></i>
+    <div id="localTime" class="text-black text-lg mx-2"></div>
+    <i class="fas fa-calendar text-black text-lg mx-2" aria-hidden="true"></i>
+    <div id="localDate" class="text-black text-lg mx-2"></div>
+    <i class="fas fa-calendar-day text-black text-lg mx-2" aria-hidden="true"></i>
+    <div id="localDay" class="text-black text-lg"></div>
+  </div>
+</div>
+
+
+    const timezoneOffset = data.timezone / 3600; // Convert seconds to hours
+    const cityTime = new Date(now.getTime() + timezoneOffset * 3600 * 1000).toLocaleTimeString();
+    const cityDate = new Date(now.getTime() + timezoneOffset * 3600 * 1000).toLocaleDateString('en-US', options);
+    document.getElementById('cityTime').textContent = `Local Time: ${cityTime}`;
+    document.getElementById('cityDate').textContent = `Local Date: ${cityDate}`;
+
+-->

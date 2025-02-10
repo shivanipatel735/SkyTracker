@@ -1,0 +1,64 @@
+
+/* Default Background */
+body {
+    display: flex;
+    flex-direction: column; /* Allow header and main content to stack */
+    justify-content: flex-start; /* Align items to the top */
+    align-items: center;
+    min-height: auto; /* Ensures the body takes full height */
+    margin: 0; /* Reset margin */
+    /* Prevent scrollbars from appearing */
+}
+
+/* Header styles */
+.header {
+    position: fixed; /* Fix the header at the top */
+    top: 0; /* Align to the top */
+    left: 0; /* Align to the left */
+    right: 0; /* Align to the right */
+    background: linear-gradient(90deg, rgba(37,49,166,1) 0%, rgba(148,187,233,1) 100%); /* Dark blue background */
+    color: white; /* White text color */
+    padding: 20px; /* Padding for spacing */
+    text-align: center; /* Center align text */
+    z-index: 1000; /* Ensure it appears above other elements */
+}
+
+
+/* New styles for the sunrise and sunset box */
+.bg-white {
+    background-image: url('https://www.flaticon.com/svg/static/icons/svg/3523/3523063.svg');
+    position: absolute;
+    right: 0;
+    top: 20%; /* Adjust as needed for vertical positioning */
+    width: auto; /* Set a width for the box */
+    z-index: 10; /* Ensure it appears above other elements */
+}
+#weatherInfo {
+    text-align:center;
+}
+#Mainbox {
+    display: absolute;
+    flex-direction: column;
+    align-items: center; /* Center align items */
+    margin: 120px auto 250px; /* Add top margin for spacing below header */
+    padding: 20px; /* Add padding for better alignment */
+}
+#Mainbox h1{
+    align-self: flex-start;
+}
+
+/* New styles for additional weather metrics */
+/* #highLowTemp {
+    
+} */
+
+/* Styles for the weather graphs */
+canvas {
+    max-width: 100%;
+    height: auto;
+    margin: 20px 0px;
+}
+
+#windSpeed, #humidity, #airPollution {
+    font-size: 1.2rem;
+}
