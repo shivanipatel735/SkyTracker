@@ -5,9 +5,7 @@ body {
     flex-direction: column; /* Allow header and main content to stack */
     justify-content: flex-start; /* Align items to the top */
     align-items: center;
-    min-height: auto; /* Ensures the body takes full height */
     margin: 0; /* Reset margin */
-    /* Prevent scrollbars from appearing */
 }
 
 /* Header styles */
@@ -27,11 +25,12 @@ body {
 /* New styles for the sunrise and sunset box */
 .bg-white {
     background-image: url('https://www.flaticon.com/svg/static/icons/svg/3523/3523063.svg');
-    position: absolute;
+    position: flex;
     right: 0;
+    margin: 0;
     top: 20%; /* Adjust as needed for vertical positioning */
     width: auto; /* Set a width for the box */
-    z-index: 10; /* Ensure it appears above other elements */
+    /* Ensure it appears above other elements */
 }
 #weatherInfo {
     text-align:center;
