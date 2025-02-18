@@ -61,3 +61,19 @@ canvas {
 #windSpeed, #humidity, #airPollution {
     font-size: 1.2rem;
 }
+.weather-card {
+    display: inline-block;
+    width: 150px;
+    padding: 10px;
+    margin: 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+  }
+  
+  .weather-card img {
+    width: 50px;
+    height: 50px;
+  }
+  
