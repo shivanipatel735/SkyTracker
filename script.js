@@ -4,6 +4,7 @@ const apiKey = 'a1717a4191a9bf957c033562941153e1'; // Updated API key
 const apiURL = 'https://api.openweathermap.org/data/2.5/weather';
 const weeklyAPI = 'https://api.openweathermap.org/data/2.5/forecast'; // New endpoint for weekly data
 const citiesAPI = 'https://api.openweathermap.org/data/2.5/find'; // Replace with actual cities API
+const geoAPI = 'https://api.openweathermap.org/geo/1.0/direct'; // For city suggestions
 
 // DOM elements
 const cityInput = document.getElementById('cityInput');
@@ -20,9 +21,52 @@ const error = document.getElementById('error');
 const dailyWeatherGraph = document.getElementById('dailyWeatherGraph').getContext('2d');
 const weeklyWeatherGraph = document.getElementById('weeklyWeatherGraph').getContext('2d');
 const suggestionBox = document.createElement('div'); // Dropdown for suggestions
+suggestionBox.id = 'suggestionBox';
+suggestionBox.classList.add('suggestion-box');
+suggestionBox.style.position = 'absolute'; // Prevent stretching the page
+cityInput.parentNode.style.position = 'relative';
+cityInput.parentNode.appendChild(suggestionBox);
 const locationDiv = document.getElementById('location'); // Element for location
 const background = document.getElementById('background'); // Define the background variable
-document.body.appendChild(suggestionBox); // Append suggestion box to the body
+//cityInput.parentNode.insertAdjacentElement('afterend', suggestionBox); Append suggestion box to the body
+
+// Event listener for search suggestions
+cityInput.addEventListener('input', async () => {
+  const query = cityInput.value.trim();
+  if (query.length >= 2) {
+      const suggestions = await getCitySuggestions(query);
+      displaySuggestions(suggestions);
+  } else {
+      suggestionBox.innerHTML = '';
+  }
+});
+
+async function getCitySuggestions(query) {
+  try {
+      const response = await fetch(`${geoAPI}?q=${query}&limit=5&appid=${apiKey}`);
+      const data = await response.json();
+      return data.map(city => `${city.name}, ${city.country}`);
+  } catch (err) {
+      console.error('Error fetching city suggestions:', err);
+      return [];
+  }
+}
+
+function displaySuggestions(suggestions) {
+  suggestionBox.innerHTML = suggestions.map(s => `<div class='suggestion-item'>${s}</div>`).join('');
+  suggestionBox.style.maxHeight = '150px'; // Limit height for scrolling
+  suggestionBox.style.overflowY = 'auto'; // Enable vertical scroll
+  suggestionBox.style.width = cityInput.offsetWidth + 'px'; // Match search box width
+  suggestionBox.style.top = cityInput.offsetHeight + 'px'; // Position below search box
+
+  document.querySelectorAll('.suggestion-item').forEach(item => {
+      item.addEventListener('click', () => {
+          cityInput.value = item.textContent;
+          suggestionBox.innerHTML = '';
+      });
+  });
+}
+
 
 function updateDateTime() {
   const now = new Date();
