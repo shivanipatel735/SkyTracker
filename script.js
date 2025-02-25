@@ -1,4 +1,3 @@
-
 // API key and base URL
 const apiKey = 'a1717a4191a9bf957c033562941153e1'; // Updated API key
 const apiURL = 'https://api.openweathermap.org/data/2.5/weather';
@@ -28,17 +27,16 @@ cityInput.parentNode.style.position = 'relative';
 cityInput.parentNode.appendChild(suggestionBox);
 const locationDiv = document.getElementById('location'); // Element for location
 const background = document.getElementById('background'); // Define the background variable
-//cityInput.parentNode.insertAdjacentElement('afterend', suggestionBox); Append suggestion box to the body
 
 // Event listener for search suggestions
 cityInput.addEventListener('input', async () => {
   const query = cityInput.value.trim();
-  if (query.length >= 2) {
+    if (query.length >= 2){
       const suggestions = await getCitySuggestions(query);
       displaySuggestions(suggestions);
-  } else {
+      } else {
       suggestionBox.innerHTML = '';
-  }
+      }
 });
 
 async function getCitySuggestions(query) {
@@ -67,28 +65,24 @@ function displaySuggestions(suggestions) {
   });
 }
 
-
 function updateDateTime() {
   const now = new Date();
-  
   // Update local time
   const localTime = now.toLocaleTimeString();
   document.getElementById('localTime').textContent = `${localTime}`;
-  
   // Update local date
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   const localDate = now.toLocaleDateString('en-US', options);
   document.getElementById('localDate').textContent = `${localDate}`;
-  
   // Update local day
   const localDay = now.toLocaleString('en-US', { weekday: 'long' });
   document.getElementById('localDay').textContent = `${localDay}`;
 }
+
 function displayGreeting() {
   const now = new Date();
   const hour = now.getHours();
   let greeting;
-
   if (hour >= 5 && hour < 12) {
     greeting = "Good Morning...";
   } else if (hour >= 12 && hour < 17.99) {
@@ -98,11 +92,8 @@ function displayGreeting() {
   } else {
     greeting = "Good Night...";
   }
-  
-
   document.getElementById('greeting').textContent = greeting;
 }
-
 displayGreeting();
 setInterval(updateDateTime); // Update every second
 
@@ -123,8 +114,7 @@ async function getWeatherData(city) {
     if (!response.ok) {
       throw new Error('City not found');
     }
-    const data = await response.json();
-    
+    const data = await response.json();   
     // Update UI with weather data, including sunrise and sunset
     weatherInfo.classList.remove('hidden');
     error.classList.add('hidden');
@@ -133,8 +123,8 @@ async function getWeatherData(city) {
     temperature.textContent = `${Math.round(data.main.temp)}°C`;
     windSpeed.textContent = `Wind Speed: ${data.wind.speed} m/s`;
     humidity.textContent = `Humidity: ${data.main.humidity}%`;
-    airPollution.textContent = `Air Pollution: ${data.aqi} Good`; // Placeholder for air pollution data
-
+    airPollution.textContent = `Air Pollution: ${data.aqi} Good`;
+    
     // Display highest and lowest temperatures
     const highTemp = Math.round(data.main.temp_max);
     const lowTemp = Math.round(data.main.temp_min);
@@ -145,14 +135,26 @@ async function getWeatherData(city) {
     updateWeatherIcon(data.weather[0].main);
     
     // Display sunrise and sunset times
-    const sunriseTime = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
-    const sunsetTime = new Date(data.sys.sunset * 1000).toLocaleTimeString();
-    document.getElementById('sunrise').textContent = `🌅 Sunrise: ${sunriseTime}`;
-    document.getElementById('sunset').textContent = ` 🌇 Sunset: ${sunsetTime}`;
+
+    // Convert sunrise and sunset time to the searched city's local time
+const cityTimezoneOffset = data.timezone; // Offset in seconds
+const sunriseDate = new Date((data.sys.sunrise + cityTimezoneOffset) * 1000);
+const sunsetDate = new Date((data.sys.sunset + cityTimezoneOffset) * 1000);
+
+// Format the time correctly
+const timeFormatter = new Intl.DateTimeFormat('en-US', {
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+  timeZone: 'UTC' // Keep it in UTC, as offset is already added
+});
+
+document.getElementById('sunrise').textContent = `🌅 Sunrise: ${timeFormatter.format(sunriseDate)}`;
+document.getElementById('sunset').textContent = `🌇 Sunset: ${timeFormatter.format(sunsetDate)}`;
     
-    // Fetch weekly weather data
+// Fetch weekly weather data
     await getWeeklyWeatherData(data.coord.lat, data.coord.lon);
-  } catch (err) {
+    } catch (err) {
     // Show error message
     error.classList.remove('hidden');
     weatherInfo.classList.add('hidden');
