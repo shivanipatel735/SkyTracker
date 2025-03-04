@@ -20,8 +20,13 @@ body {
     text-align: center; /* Center align text */
     z-index: 1000; /* Ensure it appears above other elements */
 }
-
-
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin {
+  animation: spin 5s linear infinite;
+}
 /* New styles for the sunrise and sunset box */
 .bg-white {
     background-image: url('https://www.flaticon.com/svg/static/icons/svg/3523/3523063.svg');
@@ -35,22 +40,28 @@ body {
 #weatherInfo {
     text-align:center;
 }
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+  .animate-pulse {
+    animation: pulse 2s infinite;
+  }
 #Mainbox {
     display: absolute;
     flex-direction: column;
     align-items: center; /* Center align items */
     margin: 120px auto 250px; /* Add top margin for spacing below header */
     padding: 20px; /* Add padding for better alignment */
+    background-image: url('https://img.freepik.com/free-vector/gorgeous-clouds-background-with-blue-sky-design_1017-25501.jpg');
+    
+    background-size: cover;
+    background-position: center;
 }
 #Mainbox h1{
     align-self: flex-start;
 }
-
-/* New styles for additional weather metrics */
-/* #highLowTemp {
-    
-} */
-
 /* Styles for the weather graphs */
 canvas {
     max-width: 100%;
@@ -76,4 +87,4 @@ canvas {
     width: 50px;
     height: 50px;
   }
-  
+ 

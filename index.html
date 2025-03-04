@@ -14,35 +14,24 @@
 <div>
   <header class="header flex justify-between">
       <h1 class="header-title font-extrabold text-white text-transparent text-3xl">SkyTracker</h1>
-      <button id="refreshBtn" class="text-lg">
+      <button id="refreshBtn" class="text-lg animate-spin">
         <i class="fas fa-sync-alt" aria-hidden="true"></i>
       </button>
   </header>
 </div>
-  <div class="container">
-    <div class="row">
+<div class="container">
+  <div class="row">
       <!-- Main container -->
       <div id="Mainbox" class="bg-cover bg-center w-100 shadow-lg rounded-2xl p-6 text-center">
         <!-- style="background-image: url('https://cdn.mos.cms.futurecdn.net/PQW2DZaJQwA3jtM5S2n8ZP-970-80.jpg.webp');" -->
-      <!-- <div id="Mainbox" class="bg-blue-400 w-100 bg-opacity-20 shadow-lg rounded-2xl p-6 text-center"> -->
-        <!-- Title -->
-        <h1 class="text-5xl font-bold text-black drop-shadow-md mb-3">
-          <span class="animate-pulse">🌤</span> Weather
+          <!-- Title -->
+        <h1 class="text-5xl font-bold text-black drop-shadow-md mb-3 animate-pulse">
+          <span>🌤</span> Weather
         </h1>
-        <style>
-          @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-          }
-          .animate-pulse {
-            animation: pulse 20s infinite;
-          }
-        </style>
         <!-- Current location and time -->
         <div class="grid  grid-cols-2 bg-opacity-20  m-1">
           <div class="text-sm-left">          
-            <p id="greeting" class="text-black-50 font-bold mb-2"></p>
+            <p id="greeting" class="text-black-70 font-bold mb-2"></p>
           </div>
           <!-- <div id="location" class="text-white text-lg mx-2"></div> -->     
           <div class="flex justify-end items-center">
@@ -50,50 +39,52 @@
             <p id="localDate" class="text-black-50 text-lg mx-2"></p>
             <p id="localTime" class="text-black-50 text-lg mx-2"></p>
           </div>
-        </div> 
-        <!-- Search bar -->
-        <div class="flex align-items-lg-stretch gap-2 mb-6">
-          <input id="cityInput" type="text" class="w-full p-3 text-lg rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none" placeholder="Enter city name...">
-          <button id="searchBtn" class="p-3 bg-yellow-400 hover:bg-yellow-500 text-white font-semibold rounded-lg">🔍</button>
-        </div>
-       
-        
-        <!-- Weather information -->   
-        <div class="grid grid-cols-3 gap-x-4">
-        <!-- New Sunrise and Sunset Box outside the main container -->
-        <div class="text-blue-600 p-4 rounded-lg ">
-          <p id="sunrise" class="text-lg mb-3"></p>
-          <p id="sunset" class="text-lg mb-3"></p> <!-- Sunset time -->
-        </div>
+          </div> 
+          <!-- Search bar -->
+          <div class="flex align-items-lg-stretch gap-2 mb-6">
+            <input id="cityInput" type="text" class="w-full p-3 text-lg rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none" placeholder="Enter city name...">
+            <button id="searchBtn" class="p-3 bg-yellow-400 hover:bg-yellow-500 text-white font-semibold rounded-lg">🔍</button>
+          </div>
+          <!-- Weather information -->   
+          <div class="grid grid-cols-3 gap-x-4">
+            <!-- New Sunrise and Sunset Box outside the main container -->
+            <div class="text-white p-4 rounded-lg ">
+              <p id="sunrise" class="text-lg mb-3"></p>
+              <p id="sunset" class="text-lg mb-3"></p> <!-- Sunset time -->
+            </div>
 
-        <div id="weatherInfo" class="hidden text-blue-400 border-2 border-blue-200 p-4 rounded-lg"> 
-          <h2 id="cityName" class="text-3xl font-semibold"></h2>
-          <p id="weatherDesc" class="capitalize text-lg"></p>
-          <p id="temperature" class="text-5xl font-bold mt-3"></p>
-          <p id="windSpeed" class="text-lg mt-2"></p>
-          <p id="humidity" class="text-lg mt-2"></p>
-          <p id="airPollution" class="text-lg mt-2"></p>
-          <!-- Weather Icon -->
-          <div id="weatherIcon" class="text-6xl mt-3"></div>
-        </div>
-        
-        <div id="highLowTemp" class="text-blue-600 p-4">
-          <p id="highTemp"class="text-lg mb-3"></p>
-          <p id="lowTemp"class="text-lg mb-3"></p>
+            <div id="weatherInfo" class="hidden text-white border-2 border-blue-200 p-4 rounded-lg"> 
+              <h2 id="cityName" class="text-3xl font-semibold"></h2>
+              <p id="weatherDesc" class="capitalize text-lg"></p>
+              <p id="temperature" class="text-5xl font-bold mt-3"></p>
+              <p id="windSpeed" class="text-lg mt-2"></p>
+              <p id="humidity" class="text-lg mt-2"></p>
+              <p id="airPollution" class="text-lg mt-2"></p>
+              <!-- Weather Icon -->
+              <div id="weatherIcon" class="text-6xl mt-3"></div>
+            </div>
+            
+            <div id="highLowTemp" class="text-white p-4">
+              <p id="highTemp"class="text-lg mb-3"></p>
+              <p id="lowTemp"class="text-lg mb-3"></p>
+            </div>
+          
+          </div>
+          <!-- Graphs for Day & Weekly Weather -->
+          <div class="mt-6 ">
+            <canvas id="dailyWeatherGraph" width="400" height="200"></canvas>
+            <div id="weather-display"></div>
+            <canvas id="weeklyWeatherGraph" width="400" height="200"></canvas>
+          </div>
+          <div class="space-y-6">
+            <!-- Error message -->
+          <div id="error" class="hidden text-red-500 font-semibold mt-4">City not found, please try again.</div>
+          </div>   
+      </div>  
       </div>
-      </div>
-        <!-- Graphs for Day & Weekly Weather -->
-        <div class="mt-6 ">
-          <canvas id="dailyWeatherGraph" width="400" height="200"></canvas>
-          <div id="weather-display"></div>
-          <canvas id="weeklyWeatherGraph" width="400" height="200"></canvas>
-        </div>
-        <!-- Error message -->
-        <div id="error" class="hidden text-red-500 font-semibold mt-4">City not found, please try again.</div>
-      </div>      
     </div>
   </div>
-
+</div>
   <script src="script.js"></script>
 </body>
 </html>
@@ -116,4 +107,16 @@
     document.getElementById('cityTime').textContent = `Local Time: ${cityTime}`;
     document.getElementById('cityDate').textContent = `Local Date: ${cityDate}`;
 
+
+      <div>
+    <h3 class="font-semibold mb-2">Embedded Map</h3>
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.7636473421476!2d-122.84129012411044!3d49.17357317142973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5485d928af0b0c1b%3A0xa50bcbcb3e4eb57b!2s9596%20134%20St%2C%20Surrey%2C%20BC%20V3V%205S5%2C%20Canada!5e0!3m2!1sen!2sca!4v1709080000000!5m2!1sen!2sca"
+      width="300"
+      height="300"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy">
+    </iframe>
+  </div> 
 -->
