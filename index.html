@@ -26,7 +26,19 @@
         <!-- style="background-image: url('https://cdn.mos.cms.futurecdn.net/PQW2DZaJQwA3jtM5S2n8ZP-970-80.jpg.webp');" -->
       <!-- <div id="Mainbox" class="bg-blue-400 w-100 bg-opacity-20 shadow-lg rounded-2xl p-6 text-center"> -->
         <!-- Title -->
-        <h1 class="text-5xl font-bold text-black drop-shadow-md mb-3 ">🌤 Weather</h1>
+        <h1 class="text-5xl font-bold text-black drop-shadow-md mb-3">
+          <span class="animate-pulse">🌤</span> Weather
+        </h1>
+        <style>
+          @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+          }
+          .animate-pulse {
+            animation: pulse 20s infinite;
+          }
+        </style>
         <!-- Current location and time -->
         <div class="grid  grid-cols-2 bg-opacity-20  m-1">
           <div class="text-sm-left">          
